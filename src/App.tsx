@@ -41,20 +41,28 @@ export const App: React.FC = () => {
               <FestivalCuratedShowcase />
             </div>
 
-            {/* 5. Direct-to-Cart Hero Products Grid with True Infinite Scroll Engine */}
-            <HeroProductsSection />
+            {/* 5. Curated Turnkey Industry Starter Suites (Immediate use-case tiles like FNP Gifts for Occasions) */}
+            <div id="industry-suites">
+              <IndustryKitsSection />
+            </div>
 
-            {/* 6. Smartpress-Inspired AI Print Advisor (Smart Match Specification Matcher) */}
-            <AiPrintAdvisor />
+            {/* 6. Tactile Finishes Laboratory (Velvet, Spot UV, Gold Foil, Kraft Eco-board) */}
+            <div id="tactile-lab">
+              <TactileFinishLab />
+            </div>
 
-            {/* 7. Same-Day Express Dispatch Ribbon (24-Hour Dispatch Cutoff) */}
+            {/* 7. Smartpress-Inspired AI Print Advisor (Certified Prepress Specification Studio) */}
+            <div id="spec-studio">
+              <AiPrintAdvisor />
+            </div>
+
+            {/* 8. Direct-to-Cart Hero Products Grid with Controlled Discovery & Unmistakable Options */}
+            <div id="hero-products">
+              <HeroProductsSection />
+            </div>
+
+            {/* 9. Same-Day Express Dispatch Ribbon (24-Hour Dispatch Cutoff) */}
             <SameDayExpressRibbon />
-
-            {/* 8. Tactile Finishes Laboratory (Velvet, Spot UV, Gold Foil, Kraft Eco-board) */}
-            <TactileFinishLab />
-
-            {/* 9. Curated Turnkey Industry Starter Suites */}
-            <IndustryKitsSection />
 
             {/* 10. Social Proof Ticker Stream & Verified Customer Reviews */}
             <LiveOrderTicker />

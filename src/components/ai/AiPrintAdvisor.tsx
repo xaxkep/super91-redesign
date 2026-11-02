@@ -79,7 +79,7 @@ export const AiPrintAdvisor: React.FC = () => {
   };
 
   return (
-    <section id="ai-print-advisor" className="py-20 bg-[#0C0D0E] text-[#FAF9F5] border-b border-white/10 relative overflow-hidden">
+    <section id="spec-studio" className="py-20 bg-[#0C0D0E] text-[#FAF9F5] border-b border-white/10 relative overflow-hidden scroll-mt-20">
       {/* Background architectural grid */}
       <div className="absolute inset-0 bg-dark-grain opacity-30 pointer-events-none" />
 

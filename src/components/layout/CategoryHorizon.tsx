@@ -76,6 +76,54 @@ export const CategoryHorizon: React.FC = () => {
               </div>
             </a>
           ))}
+
+          {/* Quick-Jump Section Horizon Badges */}
+          <div className="h-6 w-px bg-[#141619]/10 mx-1 shrink-0 hidden sm:block" />
+
+          <a
+            href="#industry-suites"
+            className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white hover:bg-[#FAF9F5] border border-[#141619]/12 hover:border-[#EC008C] shrink-0 transition-all duration-150 btn-tactile shadow-2xs"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EC008C]" />
+            <div className="flex flex-col text-left">
+              <span className="text-xs font-bold text-[#141619] whitespace-nowrap">
+                Industry Suites
+              </span>
+              <span className="text-[9px] font-mono text-[#EC008C] uppercase tracking-wider">
+                Turnkey Kits
+              </span>
+            </div>
+          </a>
+
+          <a
+            href="#tactile-lab"
+            className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white hover:bg-[#FAF9F5] border border-[#141619]/12 hover:border-[#00AEEF] shrink-0 transition-all duration-150 btn-tactile shadow-2xs"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00AEEF]" />
+            <div className="flex flex-col text-left">
+              <span className="text-xs font-bold text-[#141619] whitespace-nowrap">
+                Tactile Lab
+              </span>
+              <span className="text-[9px] font-mono text-[#00AEEF] uppercase tracking-wider">
+                3D Reflection
+              </span>
+            </div>
+          </a>
+
+          <a
+            href="#spec-studio"
+            className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white hover:bg-[#FAF9F5] border border-[#141619]/12 hover:border-[#0C0D0E] shrink-0 transition-all duration-150 btn-tactile shadow-2xs"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0C0D0E]" />
+            <div className="flex flex-col text-left">
+              <span className="text-xs font-bold text-[#141619] whitespace-nowrap">
+                Spec Studio
+              </span>
+              <span className="text-[9px] font-mono text-[#6E7787] uppercase tracking-wider">
+                Prepress Docket
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </div>

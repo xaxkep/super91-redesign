@@ -126,28 +126,29 @@ export const SmartNavbar: React.FC = () => {
 
           {/* Right Action Cluster */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Delivery Franchise / Pincode Radar (Mobile & Desktop) */}
+            <button
+              onClick={() => setIsPincodeModalOpen(true)}
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs font-mono text-[#141619] bg-white border border-[#141619]/12 hover:border-[#00AEEF] transition-all shadow-2xs btn-tactile"
+              title="Check Delivery Franchise Route & Same-Day Cutoff"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#00AEEF] shrink-0" />
+              <span className="hidden sm:inline text-[#6E7787]">DF:</span>
+              <span className="font-bold underline decoration-[#00AEEF] underline-offset-2">{pincode}</span>
+            </button>
+
             {/* Mobile Search Toggle Button */}
             <button
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="md:hidden p-2.5 rounded-lg bg-white border border-[#141619]/12 text-[#141619] hover:bg-[#FAF9F5] transition-colors shadow-2xs btn-tactile"
+              className="md:hidden p-2 rounded-lg bg-white border border-[#141619]/12 text-[#141619] hover:bg-[#FAF9F5] transition-colors shadow-2xs btn-tactile"
               aria-label="Toggle mobile search"
             >
               <Search className="w-4 h-4 text-[#141619]" />
             </button>
 
-            {/* Pincode Radar with Cyan Indicator */}
-            <button
-              onClick={() => setIsPincodeModalOpen(true)}
-              className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono text-[#141619] bg-white border border-[#141619]/12 hover:border-[#00AEEF] transition-all shadow-2xs btn-tactile"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00AEEF] animate-pulse" />
-              <span>DF ROUTE:</span>
-              <span className="font-bold underline decoration-[#00AEEF] underline-offset-2">{pincode}</span>
-            </button>
-
             {/* Specification Studio CTA */}
             <a
-              href="#ai-print-advisor"
+              href="#spec-studio"
               className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono font-semibold text-[#141619] bg-white hover:bg-[#00AEEF] hover:text-black border border-[#141619]/15 transition-all shadow-2xs group btn-tactile"
             >
               <Sliders className="w-3.5 h-3.5 text-[#00AEEF] group-hover:text-black transition-colors" />
@@ -188,41 +189,104 @@ export const SmartNavbar: React.FC = () => {
         )}
       </div>
 
-      {/* Pincode Modal */}
+      {/* Pincode & Delivery Franchise Modal */}
       {isPincodeModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#141619]/15 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#141619]/15 relative max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setIsPincodeModalOpen(false)}
-              className="absolute top-4 right-4 text-[#9AA3B2] hover:text-[#141619]"
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#9AA3B2] hover:text-[#141619] hover:bg-[#FAF9F5] transition-colors"
+              aria-label="Close delivery modal"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#00AEEF]" />
-              <h3 className="font-mono font-bold text-sm text-[#141619] uppercase tracking-wider">
-                Franchise Delivery Docket
-              </h3>
+
+            <div className="flex items-center gap-2.5 mb-2">
+              <div className="w-8 h-8 rounded-lg bg-[#00AEEF]/10 text-[#00AEEF] flex items-center justify-center">
+                <MapPin className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="font-mono font-bold text-sm text-[#141619] uppercase tracking-wider">
+                  Check Delivery Speed & Franchise Route
+                </h3>
+                <p className="text-[11px] font-mono text-[#00AEEF]">
+                  Active Route: DF-ROUTE-{pincode}
+                </p>
+              </div>
             </div>
+
             <p className="text-xs text-[#6E7787] mb-4 leading-relaxed font-sans">
-              Enter Indian PIN code to locate nearest Production Franchise (PF) and Delivery Franchise (DF) automated routing node.
+              Super91 routes all digital offset and rigid packaging runs through certified hyper-local Delivery Franchise (DF) nodes for verified next-day delivery.
             </p>
+
+            {/* Same-day Express Cutoff Banner */}
+            <div className="p-3 rounded-xl bg-[#FAF9F5] border border-[#141619]/10 mb-4 flex items-center justify-between font-mono text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[#141619] font-bold">24H Dispatch Active</span>
+              </div>
+              <span className="text-[#EC008C] font-bold">Cutoff in 01:20:00</span>
+            </div>
+
+            {/* PIN Code Entry Form */}
             <form onSubmit={handlePincodeSubmit} className="space-y-3 font-mono">
-              <input
-                type="text"
-                maxLength={6}
-                value={tempPincode}
-                onChange={(e) => setTempPincode(e.target.value.replace(/\D/g, ''))}
-                placeholder="400001"
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#141619]/20 text-sm font-mono tracking-widest text-[#141619] focus:outline-none focus:ring-1 focus:ring-[#00AEEF]"
-              />
-              <button
-                type="submit"
-                className="w-full py-2.5 bg-[#00AEEF] hover:bg-[#0097D1] text-white text-xs font-mono uppercase tracking-wider font-bold rounded-lg transition-colors shadow-sm"
-              >
-                Sync Logistics Route
-              </button>
+              <div>
+                <label className="block text-[11px] uppercase tracking-wider text-[#6E7787] mb-1 font-bold">
+                  Enter 6-Digit Indian Pincode
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    maxLength={6}
+                    value={tempPincode}
+                    onChange={(e) => setTempPincode(e.target.value.replace(/\D/g, ''))}
+                    placeholder="400001"
+                    className="flex-1 px-3.5 py-2.5 rounded-lg border border-[#141619]/20 text-sm font-mono tracking-widest text-[#141619] focus:outline-none focus:ring-2 focus:ring-[#00AEEF] focus:border-[#00AEEF] bg-[#FAF9F5]"
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-2.5 bg-[#0C0D0E] hover:bg-[#00AEEF] hover:text-black text-white text-xs font-mono uppercase tracking-wider font-bold rounded-lg transition-colors shadow-sm shrink-0 btn-tactile"
+                  >
+                    Set Route
+                  </button>
+                </div>
+              </div>
             </form>
+
+            {/* Quick Metro Selectors */}
+            <div className="mt-5 pt-4 border-t border-[#141619]/10 font-mono text-xs">
+              <span className="block text-[10px] text-[#9AA3B2] uppercase tracking-wider mb-2">
+                Quick-Select Key Commercial Metros:
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px]">
+                {[
+                  { city: 'Mumbai', pin: '400001' },
+                  { city: 'Delhi NCR', pin: '110001' },
+                  { city: 'Bengaluru', pin: '560001' },
+                  { city: 'Hyderabad', pin: '500001' },
+                  { city: 'Chennai', pin: '600001' },
+                  { city: 'Ahmedabad', pin: '380001' },
+                ].map((item) => (
+                  <button
+                    key={item.pin}
+                    type="button"
+                    onClick={() => {
+                      setTempPincode(item.pin);
+                      setPincode(item.pin);
+                      setIsPincodeModalOpen(false);
+                    }}
+                    className={`px-2.5 py-1.5 rounded-lg border text-left flex items-center justify-between transition-colors btn-tactile ${
+                      pincode === item.pin
+                        ? 'bg-[#00AEEF]/10 border-[#00AEEF] text-[#00AEEF] font-bold'
+                        : 'bg-white hover:bg-[#FAF9F5] border-[#141619]/10 text-[#6E7787] hover:text-[#141619]'
+                    }`}
+                  >
+                    <span>{item.city}</span>
+                    <span className="text-[9px] opacity-60">{item.pin}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

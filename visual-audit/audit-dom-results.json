@@ -3,6 +3,12 @@
   "buttonsWithoutLabel": [],
   "lowTouchTargets": [
     {
+      "tag": "BUTTON",
+      "text": "400001",
+      "width": 85,
+      "height": 30
+    },
+    {
       "tag": "INPUT",
       "text": "Adjust light reflection angle",
       "width": 96,
@@ -11,103 +17,103 @@
     {
       "tag": "A",
       "text": "WhatsApp Bulk Quotations Desk",
-      "width": 239,
+      "width": 257,
       "height": 30
     },
     {
       "tag": "A",
       "text": "Tactile Velvet Cards (400 GSM)",
-      "width": 198,
+      "width": 216,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Corrugated Shipping Mailers",
-      "width": 178,
+      "width": 194,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Retractable Standees (6×3 ft)",
-      "width": 191,
+      "width": 209,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Scored Marketing Catalogues",
-      "width": 178,
+      "width": 194,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Polymeric Die-Cut Labels",
-      "width": 158,
+      "width": 173,
       "height": 24
     },
     {
       "tag": "A",
       "text": "2026 Executive Planners",
-      "width": 152,
+      "width": 166,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Velvet Soft-Touch BOPP",
-      "width": 145,
+      "width": 158,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Scodix Ultra 3D Polymer (100μm",
-      "width": 205,
+      "width": 223,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Raised Vacuum Gold Foil (24K)",
-      "width": 191,
+      "width": 209,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Finnish Virgin Kraft Pulp",
-      "width": 165,
+      "width": 180,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Specification Studio Docket",
-      "width": 178,
+      "width": 194,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Production Franchise (PF)",
-      "width": 181,
+      "width": 196,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Delivery Franchise (DF)",
-      "width": 168,
+      "width": 182,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Corporate Gifting Desk",
-      "width": 145,
+      "width": 158,
       "height": 24
     },
     {
       "tag": "A",
       "text": "GST Tax Credit Documentation",
-      "width": 185,
+      "width": 202,
       "height": 24
     },
     {
       "tag": "A",
       "text": "Terms of Press & Reprint Polic",
-      "width": 205,
+      "width": 223,
       "height": 24
     }
   ]

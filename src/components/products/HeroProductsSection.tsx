@@ -5,6 +5,7 @@ import { HeroProductCard } from './HeroProductCard';
 const COMBINED_CATALOG: Product[] = [...HERO_PRODUCTS, ...ADDITIONAL_DISCOVERY_PRODUCTS];
 
 const BATCH_SIZE = 6;
+const MAX_AUTO_CYCLES = 2; // Auto-load first 12 products, then offer explicit load button to prevent footer entrapment
 
 export const HeroProductsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -70,7 +71,7 @@ export const HeroProductsSection: React.FC = () => {
     }, 350);
   }, [isLoadingMore, activePool]);
 
-  // IntersectionObserver for true infinite scroll on sentinel
+  // IntersectionObserver: auto-loads first MAX_AUTO_CYCLES to avoid footer entrapment
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -78,13 +79,13 @@ export const HeroProductsSection: React.FC = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         const firstEntry = entries[0];
-        if (firstEntry.isIntersecting && !isLoadingMore) {
+        if (firstEntry.isIntersecting && !isLoadingMore && streamCycle < MAX_AUTO_CYCLES) {
           loadNextBatch();
         }
       },
       {
         root: null,
-        rootMargin: '300px', // Proactive fetch before user reaches exact bottom
+        rootMargin: '120px',
         threshold: 0.1,
       }
     );
@@ -93,7 +94,7 @@ export const HeroProductsSection: React.FC = () => {
     return () => {
       observer.disconnect();
     };
-  }, [loadNextBatch, isLoadingMore]);
+  }, [loadNextBatch, isLoadingMore, streamCycle]);
 
   return (
     <section id="hero-products" className="py-20 bg-[#FAF9F5] border-b border-[#141619]/8">
@@ -150,12 +151,12 @@ export const HeroProductsSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Infinite Scroll Sentinel & Subtle Status Loader */}
+        {/* Controlled Discovery Sentinel & Load More Action */}
         <div
           ref={sentinelRef}
           className="mt-14 pt-8 border-t border-[#141619]/10 flex flex-col items-center justify-center min-h-[60px]"
         >
-          {isLoadingMore && (
+          {isLoadingMore ? (
             <div className="flex items-center gap-3 bg-white px-5 py-2.5 rounded-full border border-[#141619]/10 shadow-sm font-mono text-xs text-[#141619]">
               <div className="flex gap-1.5 items-center">
                 <span className="w-2 h-2 rounded-full bg-[#00AEEF] animate-bounce" />
@@ -164,7 +165,17 @@ export const HeroProductsSection: React.FC = () => {
               </div>
               <span className="text-[#6E7787]">Loading more products...</span>
             </div>
-          )}
+          ) : streamCycle >= MAX_AUTO_CYCLES ? (
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-center">
+              <button
+                type="button"
+                onClick={loadNextBatch}
+                className="px-6 py-3 rounded-lg bg-[#0C0D0E] hover:bg-[#00AEEF] hover:text-black text-white text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-tactile flex items-center gap-2 btn-tactile"
+              >
+                <span>Load Next {BATCH_SIZE} Products (Showing {displayedProducts.length})</span>
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

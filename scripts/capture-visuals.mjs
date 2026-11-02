@@ -37,6 +37,24 @@ async function run() {
     clip: { x: 0, y: 0, width: 1440, height: 950 },
   });
 
+  console.log('Opening Delivery Franchise Pincode Modal...');
+  await page.evaluate(() => {
+    const btns = Array.from(document.querySelectorAll('button'));
+    const pincodeBtn = btns.find((b) => b.textContent && b.textContent.includes('DF:'));
+    if (pincodeBtn) pincodeBtn.click();
+  });
+  await new Promise((r) => setTimeout(r, 600));
+  await page.screenshot({
+    path: path.join(outDir, '08-delivery-pincode-modal.png'),
+    clip: { x: 0, y: 0, width: 1440, height: 950 },
+  });
+  // Close modal
+  await page.evaluate(() => {
+    const closeBtn = document.querySelector('button[aria-label="Close delivery modal"]');
+    if (closeBtn) closeBtn.click();
+  });
+  await new Promise((r) => setTimeout(r, 400));
+
   console.log('Capturing Festival Curated Showcase...');
   const showcaseEl = await page.$('#festival-showcase');
   if (showcaseEl) {

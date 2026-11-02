@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: #141619;
+    background-color: #FAF9F5;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Subtle physical paper grain */
+.bg-paper-grain {
+  background-color: #FAF9F5;
+  background-image: radial-gradient(rgba(20, 22, 25, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-dark-grain {
+  background-color: #0C0D0E;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Authentic metallic foil light sweep */
+.metallic-gold-foil {
+  background: linear-gradient(
+    135deg,
+    #C5A059 0%,
+    #F4E8C1 25%,
+    #B38E46 50%,
+    #FFF4D2 75%,
+    #9E7D3B 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Low-Cost (GPU-Accelerated) Micro-Animations */
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentleFloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Specular Light Sweep on Hover */
+.specular-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.specular-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.8s ease-out;
+  pointer-events: none;
+}
+
+.specular-hover:hover::before {
+  left: 250%;
+}
+
+/* Tactile micro-press feedback */
+.btn-tactile {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+}
+
+.btn-tactile:hover {
+  transform: translateY(-1px);
+}
+
+.btn-tactile:active {
+  transform: scale(0.98) translateY(0);
+}
+
+/* Continuous 60fps Marquee for Live Press Orders */
+@keyframes continuousMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-continuous-marquee {
+  display: flex;
+  width: 200%;
+  animation: continuousMarquee 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-continuous-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hairline border */
+.border-hairline {
+  border-width: 1px;
+  border-color: rgba(20, 22, 25, 0.08);
+}
+
+.border-hairline-dark {
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Precise scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF9F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #D5D1C6;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9AA3B2;
+}

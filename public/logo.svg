@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" fill="none">
+  <!-- SUPER in 100% Cyan -->
+  <text x="0" y="52" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="52" letter-spacing="-2" fill="#00AEEF">SUPER</text>
+  <!-- 91 in 100% Magenta -->
+  <text x="195" y="52" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="52" letter-spacing="-2" fill="#EC008C">91</text>
+  <!-- Baseline Rule in Cyan / Magenta Gradient -->
+  <rect x="0" y="64" width="200" height="3" fill="#00AEEF" rx="1.5" />
+  <rect x="205" y="64" width="70" height="3" fill="#EC008C" rx="1.5" />
+</svg>

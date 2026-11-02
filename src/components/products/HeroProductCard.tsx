@@ -1,11 +1,48 @@
 import React, { useState } from 'react';
 import type { Product, QuantityTier, SpecOption } from '../../data/mockCatalog';
 import { useExpressDrawer } from '../../context/ExpressDrawerContext';
-import { ArrowRight, Star, Clock, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 
 interface HeroProductCardProps {
   product: Product;
 }
+
+const getShortPaperLabel = (label: string) => {
+  if (label.includes('400 GSM')) return '400g Virgin';
+  if (label.includes('350 GSM')) return '350g Silk';
+  if (label.includes('450 GSM')) return '450g Cotton';
+  if (label.includes('White Clay')) return 'Clay Kraft';
+  if (label.includes('Natural Brown')) return 'Brown Kraft';
+  if (label.includes('Reinforced')) return '5-Ply Flute';
+  if (label.includes('Anti-Curl')) return 'Anti-Curl PET';
+  if (label.includes('Tension')) return 'Tension Poly';
+  if (label.includes('170 GSM')) return '170g Silk';
+  if (label.includes('250 GSM')) return '250g Heavy';
+  if (label.includes('300 GSM')) return '300g Organic';
+  if (label.includes('Ultra-White')) return 'Polymeric';
+  if (label.includes('Prismatic')) return 'Prism Foil';
+  if (label.includes('Optical Clear')) return 'Clear Vinyl';
+  if (label.includes('Italian')) return 'Thermo PU';
+  if (label.includes('Belgian')) return 'Linen Cloth';
+  return label.split(' ').slice(0, 2).join(' ');
+};
+
+const getShortFinishLabel = (label: string) => {
+  if (label.includes('Velvet')) return 'Velvet Matte';
+  if (label.includes('Raised 3D Gold')) return '3D Gold Foil';
+  if (label.includes('Scodix')) return 'Scodix UV';
+  if (label.includes('Anti-Scuff')) return 'Anti-Scuff';
+  if (label.includes('Hot Stamped')) return 'Hot Foil';
+  if (label.includes('Anti-Glare')) return 'Anti-Glare';
+  if (label.includes('High-Saturation')) return 'Luster Gloss';
+  if (label.includes('Double-Sided')) return 'Double Silk';
+  if (label.includes('Front Cover')) return 'Spot UV';
+  if (label.includes('Outdoor UV')) return 'UV Barrier';
+  if (label.includes('High-Gloss')) return 'Gloss Poly';
+  if (label.includes('Deep Hydraulic')) return 'Blind Deboss';
+  if (label.includes('24K Warm')) return '24K Gilt';
+  return label.split(' ').slice(0, 2).join(' ');
+};
 
 export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => {
   const { openDrawer } = useExpressDrawer();
@@ -24,8 +61,8 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
 
   return (
     <div className="bg-white rounded-2xl border border-[#141619]/10 shadow-specimen hover:shadow-sheet transition-all duration-300 flex flex-col justify-between overflow-hidden group specular-hover">
-      {/* Editorial Specimen Image Header */}
-      <div className="relative h-60 overflow-hidden bg-[#F3F1EA]">
+      {/* 1. Compact Editorial Specimen Image Header */}
+      <div className="relative h-36 sm:h-40 overflow-hidden bg-[#F3F1EA] shrink-0">
         <img
           src={product.image}
           alt={product.name}
@@ -33,29 +70,29 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
           loading="lazy"
         />
 
-        {/* Top Spec Badges with 100% Cyan & 100% Magenta Accents */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-          <span className="px-2.5 py-1 rounded-md bg-[#0C0D0E]/90 text-white font-mono text-[10px] tracking-wider uppercase backdrop-blur-md">
+        {/* Top Badges */}
+        <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1 z-10">
+          <span className="px-2 py-0.5 rounded bg-[#0C0D0E]/90 text-white font-mono text-[9px] tracking-wider uppercase backdrop-blur-md">
             {product.edition}
           </span>
           {product.isSameDayEligible && (
-            <span className="px-2 py-1 rounded-md bg-[#00AEEF] text-white font-mono text-[10px] font-bold tracking-wider uppercase shadow-xs">
+            <span className="px-1.5 py-0.5 rounded bg-[#00AEEF] text-white font-mono text-[9px] font-bold tracking-wider uppercase shadow-xs">
               24H DISPATCH
             </span>
           )}
         </div>
 
-        {/* Caliper & Press Spec Footnote */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between bg-[#0C0D0E]/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] font-mono text-white/80">
-          <span className="text-[#00AEEF]">{product.caliper}</span>
-          <span className="text-[#EC008C] truncate max-w-[170px] font-semibold">{product.pressTechnology}</span>
+        {/* Caliper Footnote */}
+        <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between bg-[#0C0D0E]/90 backdrop-blur-md px-2.5 py-1 rounded text-[9px] font-mono text-white/90">
+          <span className="text-[#00AEEF] truncate max-w-[120px]">{product.caliper}</span>
+          <span className="text-[#EC008C] truncate max-w-[150px] font-semibold">{product.pressTechnology}</span>
         </div>
       </div>
 
-      {/* Specimen Description & Specs */}
-      <div className="p-6 flex-1 flex flex-col justify-between space-y-5">
+      {/* 2. Compact Specimen Information & Unmistakable Option Groups */}
+      <div className="p-4 sm:p-4.5 flex-1 flex flex-col justify-between space-y-3">
         <div>
-          <div className="flex items-center justify-between mb-1 text-[11px] font-mono text-[#6E7787] uppercase tracking-wider">
+          <div className="flex items-center justify-between text-[10px] font-mono text-[#6E7787] uppercase tracking-wider mb-0.5">
             <span>{product.category}</span>
             <div className="flex items-center gap-1 text-[#141619]">
               <Star className="w-3 h-3 text-[#EC008C] fill-[#EC008C]" />
@@ -63,28 +100,28 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
               <span className="text-[#9AA3B2]">({product.reviewsCount})</span>
             </div>
           </div>
-          <h3 className="font-sans font-bold text-lg text-[#141619] tracking-tight group-hover:text-[#00AEEF] transition-colors">
+          <h3 className="font-sans font-bold text-base text-[#141619] tracking-tight truncate group-hover:text-[#00AEEF] transition-colors">
             {product.name}
           </h3>
-          <p className="text-xs text-[#6E7787] mt-1.5 leading-relaxed line-clamp-2">
+          <p className="text-[11px] text-[#6E7787] mt-0.5 leading-snug line-clamp-1">
             {product.description}
           </p>
         </div>
 
-        {/* Technical Attributes Control Strip */}
-        <div className="space-y-4 pt-3 border-t border-[#141619]/10">
-          {/* 1. Quantity Run Ladder with Savings */}
+        {/* Technical Attributes Control Strip (Compact 1-Row Groups) */}
+        <div className="space-y-2.5 pt-2 border-t border-[#141619]/10">
+          {/* Step 1: Quantity Ladder */}
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono mb-2 uppercase">
-              <span className="font-bold text-[#141619] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#EC008C]" />
-                <span>1. Select Quantity Run:</span>
+            <div className="flex items-center justify-between text-[10px] font-mono mb-1 uppercase">
+              <span className="font-bold text-[#141619] flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EC008C]" />
+                <span>1. Quantity:</span>
               </span>
-              <span className="text-[#EC008C] font-bold text-[10px] bg-[#EC008C]/10 px-2 py-0.5 rounded">
-                {selectedTier.savingsPercent > 0 ? `Save ${selectedTier.savingsPercent}% on scale` : 'Base Tier'}
+              <span className="text-[#EC008C] font-bold text-[9px]">
+                {selectedTier.savingsPercent > 0 ? `Save ${selectedTier.savingsPercent}%` : 'Base'}
               </span>
             </div>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-4 gap-1">
               {product.quantityTiers.map((tier) => {
                 const isSelected = selectedTier.quantity === tier.quantity;
                 return (
@@ -92,15 +129,15 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
                     key={tier.quantity}
                     type="button"
                     onClick={() => setSelectedTier(tier)}
-                    className={`py-2 px-1 rounded-lg text-xs font-mono transition-all border text-center cursor-pointer relative btn-tactile ${
+                    className={`py-1 px-1 rounded-md text-[11px] font-mono transition-all border text-center cursor-pointer btn-tactile ${
                       isSelected
-                        ? 'bg-[#0C0D0E] text-white font-bold border-[#0C0D0E] shadow-sm ring-2 ring-[#00AEEF]/50'
-                        : 'bg-white hover:bg-[#FAF9F5] text-[#141619] border-[#141619]/15 hover:border-[#141619]/40'
+                        ? 'bg-[#0C0D0E] text-white font-bold border-[#0C0D0E] shadow-2xs ring-1 ring-[#00AEEF]'
+                        : 'bg-white hover:bg-[#FAF9F5] text-[#141619] border-[#141619]/15'
                     }`}
                   >
-                    <div className="font-bold">{tier.quantity}</div>
-                    <div className={`text-[9px] ${isSelected ? 'text-[#00AEEF]' : 'text-[#6E7787]'}`}>
-                      ₹{tier.unitPrice.toFixed(2)}/u
+                    <div className="font-bold leading-tight">{tier.quantity}</div>
+                    <div className={`text-[8px] leading-tight ${isSelected ? 'text-[#00AEEF]' : 'text-[#6E7787]'}`}>
+                      ₹{tier.unitPrice.toFixed(1)}/u
                     </div>
                   </button>
                 );
@@ -108,18 +145,18 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
             </div>
           </div>
 
-          {/* 2. Paper Substrate Selector (Unmistakable Radio Circles & Cyan Highlights) */}
+          {/* Step 2: Substrate Stock (Horizontal 1-Row Radio Chips) */}
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono mb-2 uppercase">
-              <span className="font-bold text-[#141619] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#00AEEF]" />
-                <span>2. Select Substrate Stock:</span>
+            <div className="flex items-center justify-between text-[10px] font-mono mb-1 uppercase">
+              <span className="font-bold text-[#141619] flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00AEEF]" />
+                <span>2. Substrate:</span>
               </span>
-              <span className="text-[10px] font-mono text-[#00AEEF] font-bold">
-                Option Active
+              <span className="text-[9px] font-mono text-[#00AEEF] font-bold truncate max-w-[160px]">
+                {selectedPaper.label}
               </span>
             </div>
-            <div className="space-y-1.5">
+            <div className="grid grid-cols-3 gap-1">
               {product.paperStocks.map((paper) => {
                 const isSelected = selectedPaper.id === paper.id;
                 return (
@@ -127,48 +164,42 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
                     key={paper.id}
                     type="button"
                     onClick={() => setSelectedPaper(paper)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-all border text-left cursor-pointer group/opt btn-tactile ${
+                    className={`py-1.5 px-1.5 rounded-md text-[10px] font-mono transition-all border text-center flex items-center justify-center gap-1 cursor-pointer group/opt btn-tactile ${
                       isSelected
-                        ? 'bg-[#00AEEF]/10 text-[#0C0D0E] font-bold border-[#00AEEF] shadow-2xs ring-1 ring-[#00AEEF]'
-                        : 'bg-white hover:bg-[#FAF9F5] text-[#333] border-[#141619]/15 hover:border-[#00AEEF]/50'
+                        ? 'bg-[#00AEEF]/10 text-[#0C0D0E] font-bold border-[#00AEEF] ring-1 ring-[#00AEEF]'
+                        : 'bg-white hover:bg-[#FAF9F5] text-[#444] border-[#141619]/15 hover:border-[#00AEEF]/40'
                     }`}
+                    title={paper.label}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      {/* Radio Circle Affordance */}
-                      <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-all ${
-                          isSelected
-                            ? 'border-[#00AEEF] bg-[#00AEEF]'
-                            : 'border-[#141619]/30 bg-white group-hover/opt:border-[#00AEEF]'
-                        }`}
-                      >
-                        {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <span className="truncate">{paper.label}</span>
+                    {/* Visual Radio Circle */}
+                    <div
+                      className={`w-3 h-3 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                        isSelected
+                          ? 'border-[#00AEEF] bg-[#00AEEF]'
+                          : 'border-[#141619]/30 bg-white group-hover/opt:border-[#00AEEF]'
+                      }`}
+                    >
+                      {isSelected && <span className="w-1 h-1 rounded-full bg-white" />}
                     </div>
-                    {paper.badge && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#00AEEF]/15 text-[#00AEEF] shrink-0 font-mono">
-                        {paper.badge}
-                      </span>
-                    )}
+                    <span className="truncate">{getShortPaperLabel(paper.label)}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* 3. Tactile Coating Selector (Unmistakable Radio Circles & Magenta Highlights) */}
+          {/* Step 3: Tactile Coating (Horizontal 1-Row Radio Chips) */}
           <div>
-            <div className="flex items-center justify-between text-[11px] font-mono mb-2 uppercase">
-              <span className="font-bold text-[#141619] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#EC008C]" />
-                <span>3. Select Tactile Coating:</span>
+            <div className="flex items-center justify-between text-[10px] font-mono mb-1 uppercase">
+              <span className="font-bold text-[#141619] flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EC008C]" />
+                <span>3. Finish:</span>
               </span>
-              <span className="text-[10px] font-mono text-[#EC008C] font-bold">
-                Option Active
+              <span className="text-[9px] font-mono text-[#EC008C] font-bold truncate max-w-[160px]">
+                {selectedFinish.label}
               </span>
             </div>
-            <div className="space-y-1.5">
+            <div className="grid grid-cols-3 gap-1">
               {product.finishes.map((finish) => {
                 const isSelected = selectedFinish.id === finish.id;
                 return (
@@ -176,30 +207,24 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
                     key={finish.id}
                     type="button"
                     onClick={() => setSelectedFinish(finish)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-all border text-left cursor-pointer group/opt btn-tactile ${
+                    className={`py-1.5 px-1.5 rounded-md text-[10px] font-mono transition-all border text-center flex items-center justify-center gap-1 cursor-pointer group/opt btn-tactile ${
                       isSelected
-                        ? 'bg-[#EC008C]/10 text-[#0C0D0E] font-bold border-[#EC008C] shadow-2xs ring-1 ring-[#EC008C]'
-                        : 'bg-white hover:bg-[#FAF9F5] text-[#333] border-[#141619]/15 hover:border-[#EC008C]/50'
+                        ? 'bg-[#EC008C]/10 text-[#0C0D0E] font-bold border-[#EC008C] ring-1 ring-[#EC008C]'
+                        : 'bg-white hover:bg-[#FAF9F5] text-[#444] border-[#141619]/15 hover:border-[#EC008C]/40'
                     }`}
+                    title={finish.label}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      {/* Radio Circle Affordance */}
-                      <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-all ${
-                          isSelected
-                            ? 'border-[#EC008C] bg-[#EC008C]'
-                            : 'border-[#141619]/30 bg-white group-hover/opt:border-[#EC008C]'
-                        }`}
-                      >
-                        {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <span className="truncate">{finish.label}</span>
+                    {/* Visual Radio Circle */}
+                    <div
+                      className={`w-3 h-3 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                        isSelected
+                          ? 'border-[#EC008C] bg-[#EC008C]'
+                          : 'border-[#141619]/30 bg-white group-hover/opt:border-[#EC008C]'
+                      }`}
+                    >
+                      {isSelected && <span className="w-1 h-1 rounded-full bg-white" />}
                     </div>
-                    {finish.badge && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#EC008C]/15 text-[#EC008C] shrink-0 font-mono">
-                        {finish.badge}
-                      </span>
-                    )}
+                    <span className="truncate">{getShortFinishLabel(finish.label)}</span>
                   </button>
                 );
               })}
@@ -207,18 +232,18 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
           </div>
         </div>
 
-        {/* Live Price Receipt & Express Buy */}
-        <div className="pt-4 border-t border-[#141619]/10 space-y-3">
+        {/* 3. Live Price Calculation & Instant Express Buy Button */}
+        <div className="pt-2.5 border-t border-[#141619]/10 space-y-2">
           <div className="flex items-baseline justify-between font-mono">
             <div className="flex flex-col">
-              <span className="text-[10px] text-[#9AA3B2] uppercase">Live Configured Unit Rate</span>
+              <span className="text-[9px] text-[#9AA3B2] uppercase">Live Rate</span>
               <span className="text-xs font-bold text-[#141619]">
-                ₹{calculatedUnitPrice.toFixed(2)} / unit
+                ₹{calculatedUnitPrice.toFixed(2)}/u
               </span>
             </div>
             <div className="flex flex-col items-end">
-              <span className="text-[10px] text-[#9AA3B2] uppercase">Total ({selectedTier.quantity} pcs + 18% GST)</span>
-              <span className="font-sans font-extrabold text-2xl text-[#141619] tracking-tight">
+              <span className="text-[9px] text-[#9AA3B2] uppercase">Total ({selectedTier.quantity} pcs + GST)</span>
+              <span className="font-sans font-black text-xl text-[#141619] tracking-tight">
                 ₹{totalPayable.toLocaleString('en-IN')}
               </span>
             </div>
@@ -226,7 +251,7 @@ export const HeroProductCard: React.FC<HeroProductCardProps> = ({ product }) => 
 
           <button
             onClick={() => openDrawer(product, selectedTier, selectedPaper, selectedFinish)}
-            className="w-full py-3 px-4 rounded-lg bg-[#0C0D0E] hover:bg-[#00AEEF] hover:text-black text-white font-mono font-bold text-xs uppercase tracking-wider shadow-tactile transition-all flex items-center justify-center gap-2 group/btn btn-tactile"
+            className="w-full py-2.5 px-3 rounded-lg bg-[#0C0D0E] hover:bg-[#00AEEF] hover:text-black text-white font-mono font-bold text-xs uppercase tracking-wider shadow-tactile transition-all flex items-center justify-center gap-1.5 group/btn btn-tactile"
           >
             <span>Express Buy (Slide-Out)</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
